@@ -1,0 +1,472 @@
+{% extends 'jurnallar/base.html' %}
+
+{% block title %}Fan Yo'nalishlari - Jurnallar Tizimi{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-3 py-4">
+    <header class="text-center mb-5 page-header">
+        <h1 class="display-5 fw-bolder main-title">
+            Fan Yo'nalishlari
+        </h1>
+        <p class="lead text-muted-custom">Tadqiqotingiz uchun kerakli yo'nalishni tanlang</p>
+    </header>
+
+    <section id="fanlar-accordion-container" class="mx-auto">
+        {% for fan in fanlar %}
+        <div class="fan-accordion-item" data-fan-id="{{ fan.id }}" data-fan-name="{{ fan.nomi }}">
+            <button class="fan-accordion-header">
+                <div class="fan-icon-wrapper">
+                    <i class="fas fa-book default-icon"></i>
+                </div>
+                <span class="fan-title">{{ fan.nomi }}</span>
+                <i class="fas fa-chevron-down fan-arrow"></i>
+            </button>
+            <div class="fan-accordion-content">
+                <div class="bolimlar-grid p-3">
+                    <!-- Spinner shu yerda paydo bo'ladi -->
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="text-center py-5 no-content">
+            <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
+            <h4 class="fw-bold">Fanlar topilmadi</h4>
+            <p class="text-muted">Hozircha tizimga fanlar qo'shilmagan.</p>
+        </div>
+        {% endfor %}
+    </section>
+</div>
+
+<style>
+    /* --- ASOSIY STILLAR --- */
+    :root {
+        --dark-color: #1e293b;
+        --text-muted: #64748b;
+        --card-bg: #ffffff;
+        --border-radius: 1rem;
+        --text-color: #334155;
+    }
+
+    .main-title {
+        color: var(--dark-color);
+        font-weight: 800;
+        background: linear-gradient(90deg, #4f46e5, #9333ea);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
+    }
+
+    .text-muted-custom {
+        color: var(--text-muted);
+    }
+
+    #fanlar-accordion-container {
+        max-width: 700px;
+    }
+
+    /* --- ANIMATSIYALAR --- */
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.98); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    .page-header {
+        animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    .fan-accordion-item, .no-content {
+        animation: fadeInUp 0.5s ease-out forwards;
+        opacity: 0;
+        animation-delay: calc(var(--item-index, 0) * 70ms);
+    }
+
+    .bolim-card {
+        animation: fadeIn 0.4s ease-out forwards;
+        opacity: 0;
+        animation-delay: calc(var(--item-index, 0) * 50ms);
+    }
+
+    /* --- AKKORDEON STILLARI (YANGILANGAN) --- */
+    .fan-accordion-item {
+        margin-bottom: 1rem;
+        border-radius: var(--border-radius);
+        background: var(--card-bg);
+        border: 2px solid #e2e8f0;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        position: relative;
+    }
+
+    /* Har bitta fan uchun alohida hover effekti */
+    .fan-accordion-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Aktiv holatda hoshiya va soya */
+    .fan-accordion-item.active {
+        border-color: var(--fan-color, #6366f1);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .fan-accordion-header {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 1.25rem 1.5rem;
+        background: transparent;
+        border: none;
+        text-align: left;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .fan-accordion-header:hover {
+        background: rgba(248, 250, 252, 0.7);
+    }
+
+    .fan-icon-wrapper {
+        width: 45px;
+        height: 45px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        border-radius: 12px;
+        font-size: 1.2rem;
+        margin-right: 1.25rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    }
+
+    .fan-accordion-item.active .fan-icon-wrapper {
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .fan-title {
+        font-weight: 600;
+        color: var(--text-color);
+        flex-grow: 1;
+        font-size: 1.1rem;
+        transition: all 0.2s ease;
+    }
+
+    .fan-accordion-item:hover .fan-title {
+        color: var(--fan-color, #6366f1);
+        font-weight: 700;
+    }
+
+    .fan-arrow {
+        transition: all 0.3s ease;
+        color: var(--text-muted);
+        font-size: 1.1rem;
+    }
+
+    .fan-accordion-item.active .fan-arrow {
+        transform: rotate(180deg);
+        color: var(--fan-color, #6366f1);
+    }
+
+    .fan-accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out;
+        background: linear-gradient(135deg, #f8fafc, #ffffff);
+    }
+
+    .bolimlar-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        border-top: 2px solid var(--fan-color, #e2e8f0);
+        padding-top: 1rem !important;
+    }
+
+    .bolim-card {
+        display: flex;
+        align-items: center;
+        padding: 1rem 1.25rem;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 12px;
+        text-decoration: none;
+        color: var(--text-color);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        backdrop-filter: blur(5px);
+    }
+
+    .bolim-card:hover {
+        background: var(--fan-color);
+        color: white;
+        transform: translateX(8px) scale(1.02);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .bolim-icon {
+        width: 38px;
+        height: 38px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        margin-right: 1rem;
+        color: #fff;
+        transition: all 0.3s ease;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    }
+
+    .bolim-card:hover .bolim-icon {
+        transform: scale(1.1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        background: white;
+        color: var(--fan-color);
+    }
+
+    .accordion-spinner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80px;
+    }
+
+    .spinner-border {
+        color: var(--fan-color, #6366f1) !important;
+    }
+
+    /* Responsive dizayn */
+    @media (max-width: 768px) {
+        .fan-accordion-header {
+            padding: 1rem;
+        }
+
+        .fan-icon-wrapper {
+            width: 40px;
+            height: 40px;
+            margin-right: 1rem;
+        }
+
+        .fan-title {
+            font-size: 1rem;
+        }
+
+        .bolim-card {
+            padding: 0.875rem 1rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script defer>
+document.addEventListener('DOMContentLoaded', function() {
+    // Fanlar uchun ranglar va ikonlar
+    const fanIcons = {
+        'fizika': { icon: 'fa-atom', color: '#8b5cf6', gradient: 'linear-gradient(135deg, #8b5cf6, #a855f7)' },
+        'matematika': { icon: 'fa-square-root-variable', color: '#7c3aed', gradient: 'linear-gradient(135deg, #7c3aed, #6d28d9)' },
+        'kimyo': { icon: 'fa-flask-vial', color: '#10b981', gradient: 'linear-gradient(135deg, #10b981, #059669)' },
+        'biologiya': { icon: 'fa-dna', color: '#22c55e', gradient: 'linear-gradient(135deg, #22c55e, #16a34a)' },
+        'geologiya': { icon: 'fa-mountain', color: '#f59e0b', gradient: 'linear-gradient(135deg, #f59e0b, #d97706)' },
+        'texnika': { icon: 'fa-microchip', color: '#64748b', gradient: 'linear-gradient(135deg, #64748b, #475569)' },
+        'qishloq': { icon: 'fa-wheat-awn', color: '#84cc16', gradient: 'linear-gradient(135deg, #84cc16, #65a30d)' },
+        'tarix': { icon: 'fa-landmark', color: '#78350f', gradient: 'linear-gradient(135deg, #78350f, #92400e)' },
+        'iqtisod': { icon: 'fa-chart-line', color: '#0ea5e9', gradient: 'linear-gradient(135deg, #0ea5e9, #0284c7)' },
+        'falsafa': { icon: 'fa-brain', color: '#a855f7', gradient: 'linear-gradient(135deg, #a855f7, #9333ea)' },
+        'filologiya': { icon: 'fa-language', color: '#ec4899', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
+        'geografiya': { icon: 'fa-globe', color: '#0d9488', gradient: 'linear-gradient(135deg, #0d9488, #0f766e)' },
+        'huquq': { icon: 'fa-scale-balanced', color: '#4b5563', gradient: 'linear-gradient(135deg, #4b5563, #374151)' },
+        'pedagogika': { icon: 'fa-chalkboard-user', color: '#ea580c', gradient: 'linear-gradient(135deg, #ea580c, #c2410c)' },
+        'tibbiyot': { icon: 'fa-heart-pulse', color: '#ef4444', gradient: 'linear-gradient(135deg, #ef4444, #dc2626)' },
+        'farmatsevtika': { icon: 'fa-pills', color: '#dc2626', gradient: 'linear-gradient(135deg, #dc2626, #b91c1c)' },
+        'veterinariya': { icon: 'fa-paw', color: '#d97706', gradient: 'linear-gradient(135deg, #d97706, #b45309)' },
+        'san\'at': { icon: 'fa-paintbrush', color: '#db2777', gradient: 'linear-gradient(135deg, #db2777, #be185d)' },
+        'arxitektura': { icon: 'fa-ruler-combined', color: '#71717a', gradient: 'linear-gradient(135deg, #71717a, #52525b)' },
+        'psixologiya': { icon: 'fa-head-side-heart', color: '#9333ea', gradient: 'linear-gradient(135deg, #9333ea, #7c3aed)' },
+        'harbiy': { icon: 'fa-jet-fighter', color: '#374151', gradient: 'linear-gradient(135deg, #374151, #1f2937)' },
+        'sotsiologiya': { icon: 'fa-people-group', color: '#0891b2', gradient: 'linear-gradient(135deg, #0891b2, #0e7490)' },
+        'siyosat': { icon: 'fa-landmark-flag', color: '#4b5563', gradient: 'linear-gradient(135deg, #4b5563, #374151)' },
+        'islom': { icon: 'fa-mosque', color: '#059669', gradient: 'linear-gradient(135deg, #059669, #047857)' },
+        'informatika': { icon: 'fa-laptop-code', color: '#3b82f6', gradient: 'linear-gradient(135deg, #3b82f6, #2563eb)' },
+        'default': { icon: 'fa-book-open', color: '#6b7280', gradient: 'linear-gradient(135deg, #6b7280, #4b5563)' }
+    };
+
+    // Bo'limlar uchun ranglar
+    const bolimIcons = {
+        'milliy': { icon: 'fa-flag-usa', color: '#16a34a', gradient: 'linear-gradient(135deg, #16a34a, #15803d)' },
+        'davlat': { icon: 'fa-building-columns', color: '#3b82f6', gradient: 'linear-gradient(135deg, #3b82f6, #2563eb)' },
+        'evropa': { icon: 'fa-earth-europe', color: '#f59e0b', gradient: 'linear-gradient(135deg, #f59e0b, #d97706)' },
+        'amerika': { icon: 'fa-earth-americas', color: '#ef4444', gradient: 'linear-gradient(135deg, #ef4444, #dc2626)' },
+        'jurnal': { icon: 'fa-newspaper', color: '#ec4899', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
+        'ilmiy': { icon: 'fa-microscope', color: '#8b5cf6', gradient: 'linear-gradient(135deg, #8b5cf6, #7c3aed)' },
+        'default': { icon: 'fa-folder-open', color: '#64748b', gradient: 'linear-gradient(135deg, #64748b, #475569)' }
+    };
+
+    const accordionContainer = document.getElementById('fanlar-accordion-container');
+
+    // Animatsiya uchun index qo'shish
+    document.querySelectorAll('.fan-accordion-item').forEach((item, index) => {
+        item.style.setProperty('--item-index', index);
+    });
+
+    // Har bitta fan uchun alohida rang va ikon sozlash
+    document.querySelectorAll('.fan-accordion-item').forEach(item => {
+        const fanName = item.dataset.fanName.toLowerCase();
+        const iconWrapper = item.querySelector('.fan-icon-wrapper');
+        const iconElement = iconWrapper.querySelector('i');
+
+        let foundKey = 'default';
+        for (const key in fanIcons) {
+            if (fanName.includes(key)) {
+                foundKey = key;
+                break;
+            }
+        }
+
+        const { icon, color, gradient } = fanIcons[foundKey];
+        iconElement.className = `fas ${icon}`;
+        iconWrapper.style.background = gradient;
+
+        // CSS o'zgaruvchisini o'rnatish
+        item.style.setProperty('--fan-color', color);
+    });
+
+    // Debounce funksiyasi
+    function debounce(func, wait) {
+        let timeout;
+        return function(...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), wait);
+        };
+    }
+
+    const clickHandler = async function(e) {
+        const header = e.target.closest('.fan-accordion-header');
+        if (!header) return;
+
+        const currentItem = header.parentElement;
+        const content = currentItem.querySelector('.fan-accordion-content');
+
+        // Barcha ochiq elementlarni yopish
+        accordionContainer.querySelectorAll('.fan-accordion-item.active').forEach(item => {
+            if (item !== currentItem) {
+                item.classList.remove('active');
+                item.querySelector('.fan-accordion-content').style.maxHeight = null;
+            }
+        });
+
+        // Joriy elementni ochish/yopish
+        currentItem.classList.toggle('active');
+
+        if (currentItem.classList.contains('active')) {
+            if (!content.dataset.loaded) {
+                await loadBolimlar(currentItem);
+            }
+            content.style.maxHeight = content.scrollHeight + "px";
+        } else {
+            content.style.maxHeight = null;
+        }
+    };
+
+    accordionContainer.addEventListener('click', debounce(clickHandler, 100));
+
+    async function loadBolimlar(currentItem) {
+        const fanId = currentItem.dataset.fanId;
+        const content = currentItem.querySelector('.fan-accordion-content');
+        const grid = content.querySelector('.bolimlar-grid');
+
+        grid.innerHTML = `<div class="accordion-spinner"><div class="spinner-border" role="status" style="color: ${currentItem.style.getPropertyValue('--fan-color')}"><span class="visually-hidden">Yuklanmoqda...</span></div></div>`;
+        content.style.maxHeight = "120px";
+
+        try {
+            const response = await fetch(`/fanlar/${fanId}/bolimlar/ajax/`);
+            if (!response.ok) throw new Error('Server xatoligi');
+            const data = await response.json();
+
+            if (data.success) {
+                renderBolimlar(currentItem, data.bolimlar);
+                content.dataset.loaded = 'true';
+            } else {
+                grid.innerHTML = `<p class="text-danger p-3 text-center">Xatolik: ${data.error}</p>`;
+            }
+        } catch (error) {
+            console.error('Xatolik:', error);
+            grid.innerHTML = `<p class="text-danger p-3 text-center">Bo'limlarni yuklab bo'lmadi. Iltimos, qayta urinib ko'ring.</p>`;
+        } finally {
+            if (currentItem.classList.contains('active')) {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        }
+    }
+
+    function renderBolimlar(accordionItem, bolimlar) {
+        const grid = accordionItem.querySelector('.bolimlar-grid');
+        const fanId = accordionItem.dataset.fanId;
+        const fanColor = accordionItem.style.getPropertyValue('--fan-color');
+
+        grid.innerHTML = '';
+
+        if (bolimlar.length > 0) {
+            bolimlar.forEach((bolim, index) => {
+                const bolimName = bolim.nomi.toLowerCase();
+                let foundKey = 'default';
+                for (const key in bolimIcons) {
+                    if (bolimName.includes(key)) {
+                        foundKey = key;
+                        break;
+                    }
+                }
+
+                const { icon, color, gradient } = bolimIcons[foundKey];
+                const bolimEl = document.createElement('a');
+                bolimEl.href = `/fanlar/${fanId}/bolimlar/${bolim.id}/jurnallar/`;
+                bolimEl.className = 'bolim-card';
+                bolimEl.style.setProperty('--item-index', index);
+                bolimEl.style.setProperty('--bolim-color', color);
+
+                bolimEl.innerHTML = `
+                    <div class="bolim-icon" style="background: ${gradient};">
+                        <i class="fas ${icon}"></i>
+                    </div>
+                    <span class="bolim-title">${bolim.nomi}</span>
+                `;
+
+                // Hover effekti uchun fan rangini qo'llash
+                bolimEl.addEventListener('mouseenter', function() {
+                    this.style.background = fanColor;
+                    this.querySelector('.bolim-icon').style.background = 'white';
+                    this.querySelector('.bolim-icon i').style.color = fanColor;
+                });
+
+                bolimEl.addEventListener('mouseleave', function() {
+                    this.style.background = 'rgba(255, 255, 255, 0.9)';
+                    this.querySelector('.bolim-icon').style.background = gradient;
+                    this.querySelector('.bolim-icon i').style.color = 'white';
+                });
+
+                grid.appendChild(bolimEl);
+            });
+        } else {
+            grid.innerHTML = `<p class="text-muted text-center p-4">Bu fanga tegishli bo'limlar topilmadi.</p>`;
+        }
+    }
+
+    // Sahifa yuklanganda animatsiyani boshlash
+    setTimeout(() => {
+        document.querySelectorAll('.fan-accordion-item').forEach(item => {
+            item.style.opacity = '1';
+        });
+    }, 100);
+});
+</script>
+{% endblock %}

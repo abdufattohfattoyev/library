@@ -1,0 +1,261 @@
+{% extends 'jurnallar/base.html' %}
+
+{% block title %}{{ bolim.nomi }} - {{ fan.nomi }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-3 py-4">
+
+    <!-- Sarlavha -->
+    <header class="mb-4 text-center">
+        <h1 class="main-title">{{ bolim.nomi }}</h1>
+        <p class="text-muted">{{ fan.nomi }}</p>
+    </header>
+
+    <!-- Qidiruv paneli -->
+    <section class="mb-5 search-section">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <form method="get" action="" class="search-form">
+                    <div class="input-group">
+                        <span class="input-group-text search-icon-wrapper"><i class="fas fa-search"></i></span>
+                        <input type="text" class="form-control search-input" name="q" value="{{ search_query }}" placeholder="Jurnallarni qidirish...">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jurnallar ro'yxati -->
+    <section>
+        <div class="row g-4 row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+            {% for jurnal in jurnallar %}
+            <div class="col jurnal-item">
+                <div class="card jurnal-card h-100 d-flex flex-column">
+                    <a href="{% url 'jurnal_detail' fan_id=fan.id bolim_id=bolim.id pk=jurnal.id %}" class="text-decoration-none text-dark d-flex flex-column flex-grow-1">
+                        <div class="jurnal-image-wrapper">
+                            {% if jurnal.rasmi %}
+                                <img src="{{ jurnal.rasmi.url }}" class="jurnal-image" alt="{{ jurnal.nomi }}" loading="lazy">
+                            {% else %}
+                                <div class="jurnal-image-placeholder">
+                                    <span class="placeholder-letter">{{ jurnal.nomi|first|upper }}</span>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="card-body p-3 d-flex flex-column flex-grow-1">
+                            <h5 class="card-title fw-bold">{{ jurnal.nomi|truncatechars:45 }}</h5>
+                            <p class="card-text text-muted small mt-auto">
+                                Nashr: {{ jurnal.nashr_chastotasi|default:"Noma'lum" }}
+                            </p>
+                        </div>
+                    </a>
+                    <div class="card-footer p-2">
+                        <a href="{% url 'jurnal_detail' fan_id=fan.id bolim_id=bolim.id pk=jurnal.id %}" class="btn btn-sm w-100 details-btn">
+                            Batafsil
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="text-center py-5 empty-state">
+                    <i class="fas fa-layer-group fa-3x mb-3 text-muted"></i>
+                    <h5 class="fw-bold">Jurnallar hali qo'shilmagan</h5>
+                    {% if search_query %}
+                        <p class="text-muted">"{{ search_query }}" so'roviga mos jurnallar topilmadi.</p>
+                    {% else %}
+                        <p class="text-muted">Ushbu bo'limga tez orada yangi jurnallar qo'shiladi.</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Pagination -->
+    {% if is_paginated and paginator.num_pages > 1 %}
+    <nav aria-label="Sahifalar" class="mt-5">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}"><i class="fas fa-chevron-left"></i></a></li>
+            {% else %}
+                <li class="page-item disabled"><span class="page-link"><i class="fas fa-chevron-left"></i></span></li>
+            {% endif %}
+            {% for num in paginator.page_range %}
+                <li class="page-item {% if page_obj.number == num %}active{% endif %}"><a class="page-link" href="?page={{ num }}{% if search_query %}&q={{ search_query }}{% endif %}">{{ num }}</a></li>
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}"><i class="fas fa-chevron-right"></i></a></li>
+            {% else %}
+                <li class="page-item disabled"><span class="page-link"><i class="fas fa-chevron-right"></i></span></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+
+</div>
+
+<style>
+    :root {
+        --primary-gradient: linear-gradient(45deg, #6366f1, #8b5cf6);
+        --primary-color: #6366f1;
+        --border-radius: 1rem;
+        --card-bg: #ffffff;
+        --card-border: #f3f4f6;
+        --text-dark: #111827;
+        --text-muted: #6b7280;
+        --body-bg: #f9fafb;
+    }
+    body {
+        background-color: var(--body-bg);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    .main-title {
+        font-weight: 800;
+        color: var(--text-dark);
+    }
+
+    /* Qidiruv Stili */
+    .search-form .input-group {
+        border-radius: var(--border-radius);
+        background: var(--card-bg);
+        border: 1px solid #e5e7eb;
+        transition: all 0.2s ease-in-out;
+    }
+    .search-form .input-group:focus-within {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    }
+    .search-icon-wrapper {
+        background: transparent;
+        border: none;
+        color: var(--text-muted);
+        padding-left: 1rem;
+    }
+    .search-input {
+        border: none;
+        background: transparent;
+        padding: 0.75rem 1rem 0.75rem 0;
+        font-size: 1rem;
+    }
+    .search-input:focus {
+        box-shadow: none;
+    }
+
+    /* Karta Stili */
+    .jurnal-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: var(--border-radius);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -2px rgba(0,0,0,0.05);
+        overflow: hidden;
+    }
+    .jurnal-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.07), 0 4px 6px -4px rgba(0,0,0,0.07);
+    }
+
+    /* Rasm Stili */
+    .jurnal-image-wrapper {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+    }
+    .jurnal-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+    .jurnal-card:hover .jurnal-image {
+        transform: scale(1.05);
+    }
+    .jurnal-image-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f3f4f6;
+    }
+    .placeholder-letter {
+        font-size: 3rem;
+        font-weight: 700;
+        color: #d1d5db;
+    }
+
+    .card-title {
+        color: var(--text-dark);
+        line-height: 1.4;
+        font-size: 1rem;
+    }
+    .card-footer {
+        background: transparent;
+        border-top: 1px solid var(--card-border);
+    }
+    .details-btn {
+        background: var(--primary-gradient);
+        color: white;
+        font-weight: 600;
+        border: none;
+        transition: all 0.2s;
+        width: 100%;
+    }
+    .details-btn:hover {
+        color: white;
+        opacity: 0.9;
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    }
+
+    /* Animatsiya */
+    .jurnal-item, .search-section {
+        animation: item-fade-in 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    @keyframes item-fade-in {
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .search-section { animation-delay: 100ms; }
+    .jurnal-item { animation-delay: calc(var(--index) * 50ms + 200ms); }
+
+    /* Pagination */
+    .pagination .page-link {
+        border: none;
+        background: transparent;
+        color: var(--text-muted);
+        border-radius: 0.75rem;
+        margin: 0 0.2rem;
+        font-weight: 600;
+        width: 2.5rem;
+        height: 2.5rem;
+        line-height: 1.5rem;
+    }
+    .pagination .page-item.active .page-link {
+        background: var(--primary-gradient);
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+    }
+    .pagination .page-item.disabled .page-link {
+        color: #d1d5db;
+    }
+    .pagination .page-link:hover {
+        background-color: #eef2ff;
+        color: var(--primary-color);
+    }
+    .pagination .page-item.active .page-link:hover {
+        background: var(--primary-gradient);
+        color: #fff;
+    }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script defer>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.jurnal-item').forEach((item, index) => {
+        item.style.setProperty('--index', index);
+    });
+});
+</script>
+{% endblock %}

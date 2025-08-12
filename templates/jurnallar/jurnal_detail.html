@@ -1,0 +1,221 @@
+{% extends 'jurnallar/base.html' %}
+
+{% block title %}{{ jurnal.nomi }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-3 py-5">
+
+    <!-- Sarlavha va Breadcrumbs -->
+    <header class="mb-5">
+        <nav aria-label="breadcrumb" class="d-flex justify-content-center mb-3">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Bosh sahifa</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">{{ fan.nomi }}</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'jurnal_list' fan_id=fan.id bolim_id=bolim.id %}">{{ bolim.nomi }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ jurnal.nomi|truncatechars:30 }}</li>
+            </ol>
+        </nav>
+    </header>
+
+    <div class="row g-4 g-lg-5 justify-content-center">
+        <!-- Jurnal rasmi (IXCHAMLASHTIRILGAN) -->
+        <div class="col-lg-4 col-md-6">
+            <div class="jurnal-image-container">
+                {% if jurnal.rasmi %}
+                    <div class="image-wrapper" style="background-image: url('{{ jurnal.rasmi.url }}');">
+                        <img src="{{ jurnal.rasmi.url }}" alt="{{ jurnal.nomi }}" loading="lazy">
+                    </div>
+                {% else %}
+                    <div class="jurnal-image-placeholder-detail">
+                        <span class="placeholder-letter">{{ jurnal.nomi|first|upper }}</span>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Jurnal ma'lumotlari -->
+        <div class="col-lg-6 col-md-6 align-self-center"> <!-- `align-self-center` qo'shildi -->
+            <div class="jurnal-details">
+                <h1 class="display-6 fw-bolder main-title mb-3">{{ jurnal.nomi }}</h1>
+                <p class="text-muted-custom fs-5 mb-4">
+                    {{ fan.nomi }} / {{ bolim.nomi }}
+                </p>
+
+                <div class="info-list">
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-calendar-alt"></i></div>
+                        <div>
+                            <div class="info-label">Nashr chastotasi</div>
+                            <div class="info-value">{{ jurnal.nashr_chastotasi|default:"Noma'lum" }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons mt-4">
+                    {% if jurnal.jurnal_sayti %}
+                        <a href="{{ jurnal.jurnal_sayti }}" target="_blank" rel="noopener noreferrer" class="btn btn-custom">
+                            <i class="fas fa-globe me-2"></i> Jurnal sayti
+                        </a>
+                    {% endif %}
+                    {% if jurnal.talablar_link %}
+                        <a href="{{ jurnal.talablar_link }}" target="_blank" rel="noopener noreferrer" class="btn btn-custom">
+                            <i class="fas fa-file-alt me-2"></i> Talablar
+                        </a>
+                    {% endif %}
+                    {% if jurnal.murojaat_link %}
+                        <a href="{{ jurnal.murojaat_link }}" target="_blank" rel="noopener noreferrer" class="btn btn-custom">
+                            <i class="fas fa-link me-2"></i> Murojaat
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Asosiy ranglar */
+    :root {
+        --primary-color: #6366f1;
+        --primary-dark: #4f46e5;
+        --light-color: #ffffff;
+        --dark-color: #1e293b;
+        --text-color: #334155;
+        --text-muted: #64748b;
+        --bg-color: #f8fafc;
+        --card-bg: rgba(255, 255, 255, 0.9);
+        --card-border: rgba(203, 213, 225, 0.5);
+        --border-radius: 1.25rem;
+    }
+
+    .text-muted-custom { color: var(--text-muted); }
+    .main-title { color: var(--dark-color); font-weight: 800; }
+
+    .breadcrumb {
+        background: var(--card-bg);
+        padding: 0.75rem 1.25rem;
+        border-radius: var(--border-radius);
+        border: 1px solid var(--card-border);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+    .breadcrumb-item a { text-decoration: none; color: var(--primary-color); transition: color 0.2s ease; }
+    .breadcrumb-item a:hover { color: var(--primary-dark); }
+    .breadcrumb-item.active { color: var(--text-muted); }
+
+    /* --- RASM BLOKI UCHUN IXCHAM STILLAR --- */
+    .jurnal-image-container {
+        border-radius: var(--border-radius);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+        background-color: #e2e8f0;
+    }
+    .jurnal-image-container:hover {
+        transform: translateY(-5px) scale(1.03);
+        box-shadow: 0 15px 30px rgba(99, 102, 241, 0.2);
+    }
+
+    .image-wrapper {
+        width: 100%;
+        aspect-ratio: 16 / 10; /* IXCHAM PROPORSİYA */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem; /* IXCHAM BO'SHLIQ */
+        position: relative;
+        background-size: cover;
+        background-position: center;
+    }
+    .image-wrapper::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-color: rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+    }
+
+    .image-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        position: relative;
+        border-radius: calc(var(--border-radius) - 0.5rem);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .jurnal-image-placeholder-detail {
+        width: 100%;
+        aspect-ratio: 16 / 10; /* IXCHAM PROPORSİYA */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+    }
+    .placeholder-letter {
+        font-size: 4.5rem; /* IXCHAM HARF O'LCHAMI */
+        font-weight: 800;
+        color: var(--primary-color);
+        opacity: 0.5;
+        font-family: 'Poppins', sans-serif;
+    }
+    /* --- /RASM BLOKI UCHUN STILLAR --- */
+
+    .jurnal-details { animation: fade-in 0.6s ease-out forwards; }
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+    .info-list { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
+    .info-item { display: flex; align-items: center; }
+    .info-icon {
+        width: 48px; height: 48px; flex-shrink: 0;
+        background-color: var(--light-color);
+        border: 1px solid var(--card-border);
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        color: var(--primary-color); font-size: 1.1rem;
+        margin-right: 1rem; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    .info-label { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.25rem; }
+    .info-value { font-size: 1.1rem; font-weight: 600; color: var(--dark-color); }
+
+    .action-buttons { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2.5rem !important; }
+    .btn-custom {
+        padding: 0.75rem 1.5rem; border-radius: var(--border-radius);
+        font-weight: 600; text-decoration: none; transition: all 0.3s ease;
+        display: inline-flex; align-items: center; justify-content: center;
+        background: var(--primary-color); color: var(--light-color);
+        border: none; flex-grow: 1;
+    }
+    .btn-custom:hover {
+        background: var(--primary-dark); transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3);
+    }
+
+    @media (max-width: 992px) { /* lg breakpoint */
+        .jurnal-details {
+            text-align: center;
+        }
+        .info-item, .action-buttons {
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 768px) { /* md breakpoint */
+        .jurnal-image-container { margin-bottom: 2rem; }
+        .info-icon { width: 42px; height: 42px; font-size: 1rem; }
+        .action-buttons { margin-top: 2rem !important; }
+        .placeholder-letter {
+            font-size: 4rem;
+        }
+    }
+
+    @media (max-width: 576px) { /* sm breakpoint */
+        .action-buttons { flex-wrap: nowrap; gap: 0.5rem; }
+        .btn-custom { padding: 0.6rem 0.5rem; font-size: 0.85rem; }
+        .btn-custom .fas { margin-right: 0.4rem !important; }
+        .placeholder-letter {
+            font-size: 3.5rem;
+        }
+    }
+</style>
+{% endblock %}
