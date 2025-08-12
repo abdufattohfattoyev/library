@@ -90,16 +90,19 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # collectstatic natijasi shu yerga
 
+# Media fayllar uchun URL va papka
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# Static va Media fayllarni volume orqali ulash uchun /app ichida joylashishi kerak
+# Docker Compose volume'lari /app/staticfiles va /app/media ga bog'langan
+
+# Agar loyiha ichida static manba bo‘lsa:
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
-
-# Production uchun static fayllarni yig‘ish joyi
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
