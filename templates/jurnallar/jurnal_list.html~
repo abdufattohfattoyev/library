@@ -34,9 +34,7 @@
                     <a href="{% url 'jurnal_detail' fan_id=fan.id bolim_id=bolim.id pk=jurnal.id %}" class="text-decoration-none text-dark d-flex flex-column flex-grow-1">
                         <div class="jurnal-image-wrapper">
                             {% if jurnal.rasmi %}
-                                <div class="image-wrapper" style="background-image: url('{{ jurnal.rasmi.url }}');">
-                                    <img src="{{ jurnal.rasmi.url }}" class="jurnal-image" alt="{{ jurnal.nomi }}" loading="lazy">
-                                </div>
+                                <img src="{{ jurnal.rasmi.url }}" class="jurnal-image" alt="{{ jurnal.nomi }}" loading="lazy">
                             {% else %}
                                 <div class="jurnal-image-placeholder">
                                     <span class="placeholder-letter">{{ jurnal.nomi|first|upper }}</span>
@@ -107,12 +105,10 @@
         --text-muted: #6b7280;
         --body-bg: #f9fafb;
     }
-
     body {
         background-color: var(--body-bg);
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
-
     .main-title {
         font-weight: 800;
         color: var(--text-dark);
@@ -159,65 +155,33 @@
         box-shadow: 0 10px 15px -3px rgba(0,0,0,0.07), 0 4px 6px -4px rgba(0,0,0,0.07);
     }
 
-    /* Detail-dek Rasm Stili */
+    /* Rasm Stili */
     .jurnal-image-wrapper {
         width: 100%;
-        aspect-ratio: 16 / 10;
+        aspect-ratio: 1 / 1;
         overflow: hidden;
-        position: relative;
-        background-color: #e2e8f0;
     }
-
-    .image-wrapper {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.75rem;
-        position: relative;
-        background-size: cover;
-        background-position: center;
-    }
-
-    .image-wrapper::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-color: rgba(255, 255, 255, 0.3);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-    }
-
     .jurnal-image {
         width: 100%;
         height: 100%;
-        object-fit: contain;
-        position: relative;
-        border-radius: calc(var(--border-radius) - 0.5rem);
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        object-fit: cover;
         transition: transform 0.3s ease;
     }
-
     .jurnal-card:hover .jurnal-image {
-        transform: scale(1.02);
+        transform: scale(1.05);
     }
-
     .jurnal-image-placeholder {
         width: 100%;
         height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+        background-color: #f3f4f6;
     }
-
     .placeholder-letter {
-        font-size: 2.5rem;
-        font-weight: 800;
-        color: var(--primary-color);
-        opacity: 0.5;
-        font-family: 'Inter', sans-serif;
+        font-size: 3rem;
+        font-weight: 700;
+        color: #d1d5db;
     }
 
     .card-title {
@@ -282,22 +246,6 @@
     .pagination .page-item.active .page-link:hover {
         background: var(--primary-gradient);
         color: #fff;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-        .placeholder-letter {
-            font-size: 2rem;
-        }
-    }
-
-    @media (max-width: 576px) {
-        .placeholder-letter {
-            font-size: 1.75rem;
-        }
-        .jurnal-image-wrapper {
-            aspect-ratio: 1 / 1;
-        }
     }
 </style>
 {% endblock %}
