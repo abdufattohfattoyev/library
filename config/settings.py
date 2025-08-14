@@ -8,10 +8,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-3$327bh*o^4&foojt8$f5$486#j_yo$$icw6^*@^th6h*^bs$o'
 
 # Productionda Debugni o‘chir
-DEBUG = True
+DEBUG = False
 
 # Domen nomlaring (nginx orqali ishlaganda kerak)
 ALLOWED_HOSTS = [
+    "oakjurnallari.uz",
+    "www.oakjurnallari.uz",
+    "localhost",
+    "127.0.0.1",
 ]
 
 # Application definition
@@ -102,5 +106,10 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# HTTPS va xavfsizlik sozlamalari
+SECURE_SSL_REDIRECT = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Agar robots.txt static ichida bo‘lsa, nginx orqali servis qilinadi
