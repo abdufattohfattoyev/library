@@ -56,44 +56,50 @@
 
         /* NAVBAR - QAT'IY FIXED POZITSIYA */
         .navbar-main{
-            position:fixed!important;
-            top:0!important;
-            left:0!important;
-            right:0!important;
-            width:100vw!important;
-            margin:0!important;
-            padding:.75rem 1rem!important;
-            border-radius:0!important;
-            background:rgba(255,255,255,.98)!important;
-            border-bottom:1px solid rgba(0,0,0,.08)!important;
-            box-shadow:0 2px 20px rgba(0,0,0,.1)!important;
-            z-index:99999!important;
-            backdrop-filter:blur(10px)!important;
-            transform:translateY(0px)!important;
-            transition:none!important;
-            min-height:auto!important;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            margin: 0;
+            padding: .75rem 1rem;
+            border-radius: 0;
+            background: rgba(255,255,255,.98);
+            border-bottom: 1px solid rgba(0,0,0,.08);
+            box-shadow: 0 2px 20px rgba(0,0,0,.1);
+            z-index: 99999;
+            backdrop-filter: blur(10px);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+            min-height: auto;
+        }
+
+        /* Scrolled state for navbar */
+        .navbar-main.scrolled {
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 0.5rem 1rem;
         }
 
         /* CONTAINER FLUID */
         .container-fluid{
-            justify-content:center!important;
-            align-items:center!important;
-            position:relative!important;
-            width:100%!important;
-            margin:0!important;
-            padding:0 1rem!important;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            margin: 0;
+            padding: 0 1rem;
         }
 
         /* NAVBAR BRAND */
         .navbar-brand{
-            font-size:1.1rem;
-            display:flex!important;
-            align-items:center!important;
-            text-decoration:none!important;
-            flex:1!important;
-            justify-content:center!important;
-            position:relative!important;
-            max-width:calc(100% - 150px)!important;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            flex: 1;
+            justify-content: center;
+            position: relative;
+            max-width: calc(100% - 150px);
         }
         .navbar-brand:hover{color:var(--primary-color)}
         .navbar-brand .logo-icon{background:linear-gradient(135deg,var(--primary-color),var(--primary-dark));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-right:.75rem;font-size:1.5rem;flex-shrink:0}
@@ -101,38 +107,62 @@
         .text-line-1,.text-line-2,.text-line-3{display:block}
         .text-line-1,.text-line-2{margin-bottom:.15rem}
 
+        /* Scrolled state for brand text */
+        .navbar-main.scrolled .brand-text {
+            font-size: 0.85rem;
+            line-height: 1.2;
+        }
+        .navbar-main.scrolled .text-line-1,
+        .navbar-main.scrolled .text-line-2 {
+            margin-bottom: 0.1rem;
+        }
+        .navbar-main.scrolled .logo-icon {
+            font-size: 1.3rem;
+        }
+
         /* ALOQA TUGMASI */
         .navbar-contact-btn{
-            background-color:var(--primary-color)!important;
-            color:var(--light-color)!important;
-            border:none!important;
-            border-radius:.75rem!important;
-            padding:.6rem 1.2rem!important;
-            font-weight:600!important;
-            transition:var(--transition)!important;
-            white-space:nowrap!important;
-            flex-shrink:0!important;
-            position:absolute!important;
-            right:0!important;
-            top:50%!important;
-            transform:translateY(-50%)!important;
-            z-index:100000!important;
-            box-shadow:0 4px 12px rgba(99,102,241,.3)!important;
+            background-color:var(--primary-color);
+            color:var(--light-color);
+            border:none;
+            border-radius:.75rem;
+            padding:.6rem 1.2rem;
+            font-weight:600;
+            transition:var(--transition);
+            white-space:nowrap;
+            flex-shrink:0;
+            position:absolute;
+            right:0;
+            top:50%;
+            transform:translateY(-50%);
+            z-index:100000;
+            box-shadow:0 4px 12px rgba(99,102,241,.3);
         }
         .navbar-contact-btn:hover{
-            background-color:var(--primary-dark)!important;
-            transform:translateY(-52%)!important;
-            box-shadow:0 6px 16px rgba(99,102,241,.4)!important;
+            background-color:var(--primary-dark);
+            transform:translateY(-52%);
+            box-shadow:0 6px 16px rgba(99,102,241,.4);
         }
         .navbar-contact-btn .fa-headset{margin-right:.5rem}
 
+        /* Scrolled state for contact button */
+        .navbar-main.scrolled .navbar-contact-btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
         /* MAIN CONTENT */
         main{
-            padding-top:120px!important;
-            margin-top:0!important;
-            animation:.5s ease-out forwards fade-in-up;
-            position:relative!important;
-            z-index:1!important;
+            padding-top: 120px;
+            margin-top: 0;
+            animation: .5s ease-out forwards fade-in-up;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Adjust main padding when navbar is scrolled */
+        .navbar-main.scrolled + main {
+            padding-top: 90px;
         }
 
         @keyframes fade-in-up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
@@ -142,56 +172,98 @@
 
         /* RESPONSIVE MEDIA QUERIES */
         @media (min-width:992px){
-            .navbar-main{padding:1rem 2rem!important}
-            .container-fluid{justify-content:center!important;align-items:center!important;position:relative!important}
-            .navbar-brand{justify-content:center!important;text-align:center!important;max-width:calc(100% - 150px)!important}
-            .navbar-contact-btn{position:absolute!important;right:0!important;top:50%!important;transform:translateY(-50%)!important}
-            main{padding-top:120px!important}
+            .navbar-main{padding:1rem 2rem}
+            .container-fluid{justify-content:center;align-items:center;position:relative}
+            .navbar-brand{justify-content:center;text-align:center;max-width:calc(100% - 150px)}
+            .navbar-contact-btn{position:absolute;right:0;top:50%;transform:translateY(-50%)}
+            main{padding-top:120px}
+
+            /* Scrolled state for desktop */
+            .navbar-main.scrolled {
+                padding: 0.75rem 2rem;
+            }
+            .navbar-main.scrolled + main {
+                padding-top: 100px;
+            }
         }
         @media (max-width:991px){
-            .navbar-main{padding:.75rem 1rem!important}
-            .container-fluid{justify-content:center!important;align-items:center!important;position:relative!important}
-            .navbar-brand{justify-content:center!important;text-align:center!important;margin-bottom:0!important;max-width:calc(100% - 120px)!important}
+            .navbar-main{padding:.75rem 1rem}
+            .container-fluid{justify-content:center;align-items:center;position:relative}
+            .navbar-brand{justify-content:center;text-align:center;margin-bottom:0;max-width:calc(100% - 120px)}
             .navbar-brand .logo-icon{margin-right:.5rem;font-size:1.25rem}
             .brand-text{font-size:.75rem;line-height:1.2;text-align:center;max-width:none}
             .text-line-1,.text-line-2{margin-bottom:.1rem}
-            .navbar-contact-btn{position:absolute!important;right:0!important;top:50%!important;transform:translateY(-50%)!important;padding:.45rem .9rem!important;font-size:.8rem!important;border-radius:.5rem!important;z-index:100001!important;margin-top:.2rem!important}
+            .navbar-contact-btn{position:absolute;right:0;top:50%;transform:translateY(-50%);padding:.45rem .9rem;font-size:.8rem;border-radius:.5rem;z-index:100001;margin-top:.2rem}
             .navbar-contact-btn .btn-text{display:inline}
-            main{padding-top:110px!important}
+            main{padding-top:110px}
+
+            /* Scrolled state for tablet */
+            .navbar-main.scrolled {
+                padding: 0.5rem 1rem;
+            }
+            .navbar-main.scrolled + main {
+                padding-top: 90px;
+            }
         }
         @media (max-width:768px){
-            .navbar-main{padding:.6rem .75rem!important}
-            .navbar-brand{max-width:calc(100% - 110px)!important}
+            .navbar-main{padding:.6rem .75rem}
+            .navbar-brand{max-width:calc(100% - 110px)}
             .brand-text{font-size:.7rem;line-height:1.15}
-            .navbar-contact-btn{padding:.4rem .8rem!important;font-size:.75rem!important;margin-top:.15rem!important}
-            main{padding-top:105px!important}
+            .navbar-contact-btn{padding:.4rem .8rem;font-size:.75rem;margin-top:.15rem}
+            main{padding-top:105px}
+
+            /* Scrolled state for small tablet */
+            .navbar-main.scrolled {
+                padding: 0.4rem 0.75rem;
+            }
+            .navbar-main.scrolled + main {
+                padding-top: 85px;
+            }
         }
         @media (max-width:576px){
-            .navbar-main{padding:.5rem!important}
-            .navbar-brand{max-width:calc(100% - 100px)!important}
+            .navbar-main{padding:.5rem}
+            .navbar-brand{max-width:calc(100% - 100px)}
             .brand-text{font-size:.65rem;line-height:1.1;padding:0}
             .navbar-brand .logo-icon{font-size:1.1rem;margin-right:.4rem}
             .text-line-1,.text-line-2{margin-bottom:.05rem}
-            .navbar-contact-btn{padding:.35rem .7rem!important;font-size:.7rem!important;margin-top:.1rem!important}
-            main{padding-top:100px!important}
+            .navbar-contact-btn{padding:.35rem .7rem;font-size:.7rem;margin-top:.1rem}
+            main{padding-top:100px}
+
+            /* Scrolled state for mobile */
+            .navbar-main.scrolled {
+                padding: 0.3rem 0.5rem;
+            }
+            .navbar-main.scrolled + main {
+                padding-top: 80px;
+            }
         }
         @media (max-width:480px){
-            .navbar-brand{max-width:calc(100% - 90px)!important}
+            .navbar-brand{max-width:calc(100% - 90px)}
             .brand-text{font-size:.6rem;line-height:1.05}
-            .navbar-contact-btn{padding:.3rem .6rem!important;font-size:.65rem!important;margin-top:.1rem!important}
-            main{padding-top:95px!important}
+            .navbar-contact-btn{padding:.3rem .6rem;font-size:.65rem;margin-top:.1rem}
+            main{padding-top:95px}
+
+            /* Scrolled state for small mobile */
+            .navbar-main.scrolled + main {
+                padding-top: 75px;
+            }
         }
         @media (max-width:400px){
-            .navbar-brand{max-width:calc(100% - 80px)!important}
+            .navbar-brand{max-width:calc(100% - 80px)}
             .brand-text{font-size:.55rem;line-height:1}
-            .navbar-contact-btn{padding:.25rem .5rem!important;font-size:.6rem!important;margin-top:.05rem!important}
-            main{padding-top:90px!important}
+            .navbar-contact-btn{padding:.25rem .5rem;font-size:.6rem;margin-top:.05rem}
+            main{padding-top:90px}
+
+            /* Scrolled state for extra small mobile */
+            .navbar-main.scrolled + main {
+                padding-top: 70px;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Navigatsiya Paneli -->
-    <nav class="navbar navbar-main">
+    <nav class="navbar navbar-main" id="mainNavbar">
         <div class="container-fluid">
             <!-- Brend nomi -->
             <a class="navbar-brand" href="/">
@@ -246,7 +318,9 @@
             const openBtn = document.getElementById('openContactModalBtn');
             const closeBtn = document.getElementById('closeContactModalBtn');
             const modalOverlay = document.getElementById('contactModalOverlay');
+            const navbar = document.getElementById('mainNavbar');
 
+            // Modal functionality
             if (openBtn && closeBtn && modalOverlay) {
                 openBtn.addEventListener('click', () => modalOverlay.classList.add('active'));
                 closeBtn.addEventListener('click', () => modalOverlay.classList.remove('active'));
@@ -257,6 +331,30 @@
                     if (event.key === 'Escape' && modalOverlay.classList.contains('active')) {
                         modalOverlay.classList.remove('active');
                     }
+                });
+            }
+
+            // Navbar scroll effect
+            if (navbar) {
+                let lastScrollTop = 0;
+                const navbarHeight = navbar.offsetHeight;
+                const scrollThreshold = 50;
+
+                window.addEventListener('scroll', function() {
+                    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                    if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
+                        // Scrolling down
+                        navbar.classList.add('scrolled');
+                    } else if (scrollTop <= scrollThreshold) {
+                        // At top of page
+                        navbar.classList.remove('scrolled');
+                    } else {
+                        // Scrolling up
+                        navbar.classList.remove('scrolled');
+                    }
+
+                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
                 });
             }
         });
