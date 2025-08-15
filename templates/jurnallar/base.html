@@ -5,16 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Google Meta Tags -->
-    <meta name="description" content="O'zbekiston Respublikasi Oliy attestatsiya komissiyasining dissertatsiyalar asosiy ilmiy natijalarini chop etish tavsiya etilgan ilmiy nashrlar jurnallari tizimi">
-    <meta name="keywords" content="OAK, ilmiy jurnal, dissertatsiya, O'zbekiston, ilmiy nashr, attestatsiya komissiyasi">
+    <!-- SEO: Google Meta Tags -->
+    <meta name="description" content="O'zbekiston Respublikasi Oliy attestatsiya komissiyasining dissertatsiyalar asosiy ilmiy natijalarini chop etish tavsiya etilgan ilmiy nashrlar jurnallari tizimi.">
+    <meta name="keywords" content="OAK, ilmiy jurnal, dissertatsiya, O'zbekiston, ilmiy nashr, attestatsiya komissiyasi, ilmiy maqola">
     <meta name="author" content="O'zbekiston Respublikasi Oliy attestatsiya komissiyasi">
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="{% block og_title %}Jurnallar Tizimi - OAK{% endblock %}">
-    <meta property="og:description" content="O'zbekiston Respublikasi Oliy attestatsiya komissiyasining dissertatsiyalar asosiy ilmiy natijalarini chop etish tavsiya etilgan ilmiy nashrlar jurnallari">
+    <meta property="og:title" content="Jurnallar Tizimi - OAK">
+    <meta property="og:description" content="O'zbekiston Respublikasi Oliy attestatsiya komissiyasining dissertatsiyalar asosiy ilmiy natijalarini chop etish tavsiya etilgan ilmiy nashrlar jurnallari.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <meta property="og:site_name" content="OAK Jurnallar Tizimi">
@@ -22,8 +22,8 @@
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{% block twitter_title %}Jurnallar Tizimi - OAK{% endblock %}">
-    <meta name="twitter:description" content="O'zbekiston Respublikasi Oliy attestatsiya komissiyasining dissertatsiyalar asosiy ilmiy natijalarini chop etish tavsiya etilgan ilmiy nashrlar jurnallari">
+    <meta name="twitter:title" content="Jurnallar Tizimi - OAK">
+    <meta name="twitter:description" content="O'zbekiston Respublikasi Oliy attestatsiya komissiyasining dissertatsiyalar asosiy ilmiy natijalarini chop etish tavsiya etilgan ilmiy nashrlar jurnallari.">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="{{ request.build_absolute_uri }}">
@@ -31,161 +31,120 @@
     <title>{% block title %}Jurnallar Tizimi{% endblock %}</title>
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="icon" type="image/png" href="{% static 'favicon.png' %}" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}" />
-    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" />
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}" />
-    <link rel="manifest" href="{% static 'manifest.webmanifest' %}" />
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
+    <link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
+    <link rel="manifest" href="{% static 'manifest.webmanifest' %}">
 
     <style>
-        /* ASOSIY CSS O'ZGARUVCHILAR */
-        .contact-modal h2,.navbar-brand{color:var(--dark-color);font-weight:700}:root{--primary-color:#6366f1;--primary-dark:#4f46e5;--light-color:#ffffff;--dark-color:#1e293b;--text-color:#334155;--bg-color:#f8fafc;--border-radius:1rem;--shadow-lg:0 10px 15px -3px rgba(0, 0, 0, 0.1),0 4px 6px -4px rgba(0, 0, 0, 0.1);--transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1)}
-
-        /* BODY VA ASOSIY STILLAR */
-        body{background-color:var(--bg-color)!important;color:var(--text-color);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;overflow-x:hidden;padding-top:0!important;margin-top:0!important}
-
-        /* NAVBAR - QAT'IY FIXED POZITSIYA */
-        .navbar-main{
-            position:fixed!important;
-            top:0!important;
-            left:0!important;
-            right:0!important;
-            width:100vw!important;
-            margin:0!important;
-            padding:.75rem 1rem!important;
-            border-radius:0!important;
-            background:rgba(255,255,255,.98)!important;
-            border-bottom:1px solid rgba(0,0,0,.08)!important;
-            box-shadow:0 2px 20px rgba(0,0,0,.1)!important;
-            z-index:99999!important;
-            backdrop-filter:blur(10px)!important;
-            transform:translateY(0px)!important;
-            transition:none!important;
-            min-height:auto!important;
+        :root {
+            --primary-color: #6366f1;
+            --primary-dark: #4f46e5;
+            --light-color: #ffffff;
+            --dark-color: #1e293b;
+            --text-color: #334155;
+            --bg-color: #f8fafc;
+            --border-radius: 1rem;
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                          0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* CONTAINER FLUID */
-        .container-fluid{
-            justify-content:center!important;
-            align-items:center!important;
-            position:relative!important;
-            width:100%!important;
-            margin:0!important;
-            padding:0 1rem!important;
+        body {
+            background-color: var(--bg-color) !important;
+            color: var(--text-color);
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+            padding-top: 120px !important; /* Navbar ustiga chiqmasligi uchun */
         }
 
-        /* NAVBAR BRAND */
-        .navbar-brand{
-            font-size:1.1rem;
-            display:flex!important;
-            align-items:center!important;
-            text-decoration:none!important;
-            flex:1!important;
-            justify-content:center!important;
-            position:relative!important;
-            max-width:calc(100% - 150px)!important;
-        }
-        .navbar-brand:hover{color:var(--primary-color)}
-        .navbar-brand .logo-icon{background:linear-gradient(135deg,var(--primary-color),var(--primary-dark));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-right:.75rem;font-size:1.5rem;flex-shrink:0}
-        .brand-text{line-height:1.3;font-size:.95rem;font-weight:600;text-align:center}
-        .text-line-1,.text-line-2,.text-line-3{display:block}
-        .text-line-1,.text-line-2{margin-bottom:.15rem}
-
-        /* ALOQA TUGMASI */
-        .navbar-contact-btn{
-            background-color:var(--primary-color)!important;
-            color:var(--light-color)!important;
-            border:none!important;
-            border-radius:.75rem!important;
-            padding:.6rem 1.2rem!important;
-            font-weight:600!important;
-            transition:var(--transition)!important;
-            white-space:nowrap!important;
-            flex-shrink:0!important;
-            position:absolute!important;
-            right:0!important;
-            top:50%!important;
-            transform:translateY(-50%)!important;
-            z-index:100000!important;
-            box-shadow:0 4px 12px rgba(99,102,241,.3)!important;
-        }
-        .navbar-contact-btn:hover{
-            background-color:var(--primary-dark)!important;
-            transform:translateY(-52%)!important;
-            box-shadow:0 6px 16px rgba(99,102,241,.4)!important;
-        }
-        .navbar-contact-btn .fa-headset{margin-right:.5rem}
-
-        /* MAIN CONTENT */
-        main{
-            padding-top:120px!important;
-            margin-top:0!important;
-            animation:.5s ease-out forwards fade-in-up;
-            position:relative!important;
-            z-index:1!important;
+        /* Navbar - Scrollda ham joyida qoladi */
+        .navbar-main {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+            margin: 0 !important;
+            padding: .75rem 1rem !important;
+            border-radius: 0 !important;
+            background: rgba(255,255,255,.98) !important;
+            border-bottom: 1px solid rgba(0,0,0,.08) !important;
+            box-shadow: 0 2px 20px rgba(0,0,0,.1) !important;
+            z-index: 99999 !important;
+            backdrop-filter: blur(10px) !important;
         }
 
-        @keyframes fade-in-up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+        /* Brand */
+        .navbar-brand {
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+            color: var(--dark-color);
+        }
+        .navbar-brand:hover {
+            color: var(--primary-color);
+        }
 
-        /* MODAL STILLAR */
-        .contact-modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:200000;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}.contact-modal-overlay.active{opacity:1;visibility:visible}.contact-modal{background-color:var(--light-color);padding:2rem;border-radius:var(--border-radius);box-shadow:0 15px 30px rgba(0,0,0,.2);width:90%;max-width:400px;text-align:center;position:relative;transform:scale(.9);transition:transform .3s}.close-modal-btn,.contact-link{display:flex;font-size:1rem;transition:var(--transition)}.contact-modal-overlay.active .contact-modal{transform:scale(1)}.close-modal-btn{position:absolute;top:10px;right:10px;background:#f1f5f9;border:none;border-radius:50%;width:30px;height:30px;color:#64748b;cursor:pointer;align-items:center;justify-content:center}.close-modal-btn:hover{background-color:#e2e8f0;transform:rotate(90deg)}.contact-modal h2{margin-bottom:.5rem}.contact-modal p{color:#64748b;margin-bottom:1.5rem}.contact-links{display:flex;flex-direction:column;gap:1rem}.contact-link{align-items:center;padding:.75rem;border-radius:.5rem;text-decoration:none;font-weight:500;border:1px solid #e2e8f0}.contact-link:hover{transform:translateY(-2px);box-shadow:0 4px 8px rgba(0,0,0,.05);border-color:var(--primary-color)}.contact-link .icon{font-size:1.25rem;width:35px;text-align:center;margin-right:.75rem}.contact-link.phone{color:#16a34a}.contact-link.telegram{color:#0ea5e9}
+        /* Aloqa tugmasi */
+        .navbar-contact-btn {
+            background-color: var(--primary-color) !important;
+            color: var(--light-color) !important;
+            border: none !important;
+            border-radius: .75rem !important;
+            padding: .6rem 1.2rem !important;
+            font-weight: 600 !important;
+            transition: var(--transition) !important;
+            white-space: nowrap !important;
+            flex-shrink: 0 !important;
+            position: absolute !important;
+            right: 1rem !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+        }
+        .navbar-contact-btn:hover {
+            background-color: var(--primary-dark) !important;
+        }
 
-        /* RESPONSIVE MEDIA QUERIES */
-        @media (min-width:992px){
-            .navbar-main{padding:1rem 2rem!important}
-            .container-fluid{justify-content:center!important;align-items:center!important;position:relative!important}
-            .navbar-brand{justify-content:center!important;text-align:center!important;max-width:calc(100% - 150px)!important}
-            .navbar-contact-btn{position:absolute!important;right:0!important;top:50%!important;transform:translateY(-50%)!important}
-            main{padding-top:120px!important}
+        /* Modal */
+        .contact-modal-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 200000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .3s, visibility .3s;
         }
-        @media (max-width:991px){
-            .navbar-main{padding:.75rem 1rem!important}
-            .container-fluid{justify-content:center!important;align-items:center!important;position:relative!important}
-            .navbar-brand{justify-content:center!important;text-align:center!important;margin-bottom:0!important;max-width:calc(100% - 120px)!important}
-            .navbar-brand .logo-icon{margin-right:.5rem;font-size:1.25rem}
-            .brand-text{font-size:.75rem;line-height:1.2;text-align:center;max-width:none}
-            .text-line-1,.text-line-2{margin-bottom:.1rem}
-            .navbar-contact-btn{position:absolute!important;right:0!important;top:50%!important;transform:translateY(-50%)!important;padding:.45rem .9rem!important;font-size:.8rem!important;border-radius:.5rem!important;z-index:100001!important;margin-top:.2rem!important}
-            .navbar-contact-btn .btn-text{display:inline}
-            main{padding-top:110px!important}
+        .contact-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
-        @media (max-width:768px){
-            .navbar-main{padding:.6rem .75rem!important}
-            .navbar-brand{max-width:calc(100% - 110px)!important}
-            .brand-text{font-size:.7rem;line-height:1.15}
-            .navbar-contact-btn{padding:.4rem .8rem!important;font-size:.75rem!important;margin-top:.15rem!important}
-            main{padding-top:105px!important}
-        }
-        @media (max-width:576px){
-            .navbar-main{padding:.5rem!important}
-            .navbar-brand{max-width:calc(100% - 100px)!important}
-            .brand-text{font-size:.65rem;line-height:1.1;padding:0}
-            .navbar-brand .logo-icon{font-size:1.1rem;margin-right:.4rem}
-            .text-line-1,.text-line-2{margin-bottom:.05rem}
-            .navbar-contact-btn{padding:.35rem .7rem!important;font-size:.7rem!important;margin-top:.1rem!important}
-            main{padding-top:100px!important}
-        }
-        @media (max-width:480px){
-            .navbar-brand{max-width:calc(100% - 90px)!important}
-            .brand-text{font-size:.6rem;line-height:1.05}
-            .navbar-contact-btn{padding:.3rem .6rem!important;font-size:.65rem!important;margin-top:.1rem!important}
-            main{padding-top:95px!important}
-        }
-        @media (max-width:400px){
-            .navbar-brand{max-width:calc(100% - 80px)!important}
-            .brand-text{font-size:.55rem;line-height:1}
-            .navbar-contact-btn{padding:.25rem .5rem!important;font-size:.6rem!important;margin-top:.05rem!important}
-            main{padding-top:90px!important}
+        .contact-modal {
+            background-color: var(--light-color);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 15px 30px rgba(0,0,0,.2);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
         }
     </style>
 </head>
@@ -193,20 +152,12 @@
     <!-- Navigatsiya Paneli -->
     <nav class="navbar navbar-main">
         <div class="container-fluid">
-            <!-- Brend nomi -->
             <a class="navbar-brand" href="/">
-                <i class="fas fa-book-open logo-icon"></i>
-                <div class="brand-text">
-                    <div class="text-line-1">O'zbekiston Respublikasi Oliy attestatsiya komissiyasining</div>
-                    <div class="text-line-2">dissertatsiyalar asosiy ilmiy natijalarini chop etish</div>
-                    <div class="text-line-3">tavsiya etilgan ilmiy nashrlar jurnallari</div>
-                </div>
+                <i class="fas fa-book-open me-2"></i>
+                <span>O'zbekiston Respublikasi Oliy attestatsiya komissiyasi</span>
             </a>
-
-            <!-- Aloqa tugmasi -->
-            <button class="navbar-contact-btn" id="openContactModalBtn" aria-label="Aloqa ma'lumotlarini ochish">
-                <i class="fas fa-headset"></i>
-                <span class="btn-text">Aloqa</span>
+            <button class="navbar-contact-btn" id="openContactModalBtn">
+                <i class="fas fa-headset"></i> Aloqa
             </button>
         </div>
     </nav>
@@ -219,46 +170,33 @@
     <!-- ALOQA MODAL -->
     <div class="contact-modal-overlay" id="contactModalOverlay">
         <div class="contact-modal">
-            <button class="close-modal-btn" id="closeContactModalBtn" aria-label="Oynani yopish">
+            <button class="close-modal-btn" id="closeContactModalBtn" aria-label="Yopish">
                 <i class="fas fa-times"></i>
             </button>
             <h2>Aloqa uchun</h2>
-            <p>Biz bilan bog'lanish uchun qulay usulni tanlang.</p>
-            <div class="contact-links">
-                <a href="tel:+998901423938" class="contact-link phone">
-                    <i class="fas fa-phone-volume icon"></i>
-                    <span>+998 (90) 142-39-38</span>
-                </a>
-                <a href="https://t.me/Abdutolibov" target="_blank" class="contact-link telegram">
-                    <i class="fab fa-telegram icon"></i>
-                    <span>Telegram orqali yozish</span>
-                </a>
+            <p>Biz bilan bog‘lanish uchun:</p>
+            <div>
+                <a href="tel:+998901423938">📞 +998 (90) 142-39-38</a><br>
+                <a href="https://t.me/Abdutolibov" target="_blank">✈️ Telegram</a>
             </div>
         </div>
     </div>
 
     <!-- Bootstrap JS -->
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- JavaScript -->
+    <!-- Modal JS -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const openBtn = document.getElementById('openContactModalBtn');
             const closeBtn = document.getElementById('closeContactModalBtn');
             const modalOverlay = document.getElementById('contactModalOverlay');
 
-            if (openBtn && closeBtn && modalOverlay) {
-                openBtn.addEventListener('click', () => modalOverlay.classList.add('active'));
-                closeBtn.addEventListener('click', () => modalOverlay.classList.remove('active'));
-                modalOverlay.addEventListener('click', (event) => {
-                    if (event.target === modalOverlay) modalOverlay.classList.remove('active');
-                });
-                document.addEventListener('keydown', (event) => {
-                    if (event.key === 'Escape' && modalOverlay.classList.contains('active')) {
-                        modalOverlay.classList.remove('active');
-                    }
-                });
-            }
+            openBtn.addEventListener('click', () => modalOverlay.classList.add('active'));
+            closeBtn.addEventListener('click', () => modalOverlay.classList.remove('active'));
+            modalOverlay.addEventListener('click', (event) => {
+                if (event.target === modalOverlay) modalOverlay.classList.remove('active');
+            });
         });
     </script>
 
