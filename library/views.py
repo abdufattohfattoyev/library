@@ -35,7 +35,7 @@ class JurnalListView(ListView):
     """
     template_name = 'jurnallar/jurnal_list.html'
     context_object_name = 'jurnallar'
-    paginate_by = 12
+    paginate_by = 50
 
     def get_queryset(self):
         # URL dan fan va bo'limni olish
