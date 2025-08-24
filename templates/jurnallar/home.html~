@@ -91,7 +91,7 @@
         animation-delay: calc(var(--item-index, 0) * 50ms);
     }
 
-    /* --- AKKORDEON STILLARI --- */
+    /* --- AKKORDEON STILLARI (YANGILANGAN) --- */
     .fan-accordion-item {
         margin-bottom: 1rem;
         border-radius: var(--border-radius);
@@ -103,11 +103,13 @@
         position: relative;
     }
 
+    /* Har bitta fan uchun alohida hover effekti */
     .fan-accordion-item:hover {
         transform: translateY(-2px);
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     }
 
+    /* Aktiv holatda hoshiya va soya */
     .fan-accordion-item.active {
         border-color: var(--fan-color, #6366f1);
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);

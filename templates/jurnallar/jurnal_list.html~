@@ -108,14 +108,47 @@
         --body-bg: #f9fafb;
     }
 
+    /* BODY STILLAR - NAVBAR BILAN KONFLIKTSIZ */
     body {
-        background-color: var(--body-bg);
+        background-color: var(--body-bg) !important;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow-x: hidden;
+    }
+
+    /* NAVBAR UCHUN QO'SHIMCHA STIL - TEPADA QOLISHI UCHUN */
+    .navbar-main {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        z-index: 9999 !important;
+        background: rgba(255, 255, 255, 0.98) !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1) !important;
+        transform: translateZ(0) !important; /* Hardware acceleration */
+    }
+
+    /* MAIN CONTENT - NAVBAR OSTIDAN BOSHLASH UCHUN */
+    main {
+        padding-top: 120px !important;
+        margin-top: 0 !important;
+        position: relative;
+        z-index: 1;
     }
 
     .main-title {
         font-weight: 800;
         color: var(--text-dark);
+        background: linear-gradient(90deg, #4f46e5, #9333ea);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: inline-block;
     }
 
     /* Qidiruv Stili */
@@ -124,6 +157,7 @@
         background: var(--card-bg);
         border: 1px solid #e5e7eb;
         transition: all 0.2s ease-in-out;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
     .search-form .input-group:focus-within {
         border-color: var(--primary-color);
@@ -143,6 +177,7 @@
     }
     .search-input:focus {
         box-shadow: none;
+        outline: none;
     }
 
     /* Karta Stili */
@@ -150,13 +185,15 @@
         background: var(--card-bg);
         border: 1px solid var(--card-border);
         border-radius: var(--border-radius);
-        transition: all 0.3s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -2px rgba(0,0,0,0.05);
         overflow: hidden;
+        position: relative;
     }
     .jurnal-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.07), 0 4px 6px -4px rgba(0,0,0,0.07);
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+        border-color: var(--primary-color);
     }
 
     /* Detail-dek Rasm Stili */
@@ -165,7 +202,7 @@
         aspect-ratio: 16 / 10;
         overflow: hidden;
         position: relative;
-        background-color: #e2e8f0;
+        background: linear-gradient(135deg, #e2e8f0, #f1f5f9);
     }
 
     .image-wrapper {
@@ -197,10 +234,11 @@
         border-radius: calc(var(--border-radius) - 0.5rem);
         box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease;
+        z-index: 1;
     }
 
     .jurnal-card:hover .jurnal-image {
-        transform: scale(1.02);
+        transform: scale(1.05);
     }
 
     .jurnal-image-placeholder {
@@ -216,88 +254,180 @@
         font-size: 2.5rem;
         font-weight: 800;
         color: var(--primary-color);
-        opacity: 0.5;
+        opacity: 0.6;
         font-family: 'Inter', sans-serif;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .card-title {
         color: var(--text-dark);
         line-height: 1.4;
         font-size: 1rem;
+        font-weight: 700;
+        transition: color 0.2s ease;
     }
+
+    .jurnal-card:hover .card-title {
+        color: var(--primary-color);
+    }
+
     .card-footer {
         background: transparent;
         border-top: 1px solid var(--card-border);
+        padding: 0.75rem !important;
     }
+
     .details-btn {
         background: var(--primary-gradient);
         color: white;
         font-weight: 600;
         border: none;
-        transition: all 0.2s;
+        border-radius: 0.5rem;
+        padding: 0.5rem 1rem;
+        transition: all 0.3s ease;
         width: 100%;
+        font-size: 0.875rem;
+        box-shadow: 0 2px 4px rgba(99, 102, 241, 0.2);
     }
     .details-btn:hover {
         color: white;
-        opacity: 0.9;
-        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
     }
 
     /* Animatsiya */
-    .jurnal-item, .search-section {
-        animation: item-fade-in 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    .search-section, .jurnal-item {
+        animation: item-fade-in 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(30px);
     }
-    @keyframes item-fade-in {
-        to { opacity: 1; transform: translateY(0); }
-    }
-    .search-section { animation-delay: 100ms; }
-    .jurnal-item { animation-delay: calc(var(--index) * 50ms + 200ms); }
 
-    /* Pagination */
+    @keyframes item-fade-in {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .search-section {
+        animation-delay: 150ms;
+    }
+
+    .jurnal-item {
+        animation-delay: calc(var(--index) * 80ms + 300ms);
+    }
+
+    /* Pagination Stili */
+    .pagination {
+        margin-top: 3rem;
+    }
+
     .pagination .page-link {
         border: none;
         background: transparent;
         color: var(--text-muted);
         border-radius: 0.75rem;
-        margin: 0 0.2rem;
+        margin: 0 0.25rem;
         font-weight: 600;
-        width: 2.5rem;
-        height: 2.5rem;
-        line-height: 1.5rem;
+        width: 2.75rem;
+        height: 2.75rem;
+        line-height: 1.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
     }
+
     .pagination .page-item.active .page-link {
         background: var(--primary-gradient);
         color: #fff;
-        box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        transform: scale(1.1);
     }
+
     .pagination .page-item.disabled .page-link {
         color: #d1d5db;
+        cursor: not-allowed;
     }
-    .pagination .page-link:hover {
+
+    .pagination .page-link:hover:not(.disabled) {
         background-color: #eef2ff;
         color: var(--primary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
+
     .pagination .page-item.active .page-link:hover {
         background: var(--primary-gradient);
         color: #fff;
+        transform: scale(1.1);
     }
 
-    /* Responsive */
+    /* Empty State */
+    .empty-state {
+        animation: item-fade-in 0.6s ease-out forwards;
+        opacity: 0;
+        animation-delay: 300ms;
+    }
+
+    /* Responsive Dizayn */
+    @media (max-width: 992px) {
+        main {
+            padding-top: 110px !important;
+        }
+    }
+
     @media (max-width: 768px) {
+        main {
+            padding-top: 105px !important;
+        }
+
         .placeholder-letter {
             font-size: 2rem;
+        }
+
+        .jurnal-card:hover {
+            transform: translateY(-4px) scale(1.01);
         }
     }
 
     @media (max-width: 576px) {
+        main {
+            padding-top: 100px !important;
+        }
+
         .placeholder-letter {
             font-size: 1.75rem;
         }
+
         .jurnal-image-wrapper {
             aspect-ratio: 1 / 1;
         }
+
+        .pagination .page-link {
+            width: 2.5rem;
+            height: 2.5rem;
+            font-size: 0.875rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        main {
+            padding-top: 95px !important;
+        }
+    }
+
+    @media (max-width: 400px) {
+        main {
+            padding-top: 90px !important;
+        }
+    }
+
+    /* Scroll Performance Optimization */
+    .jurnal-card, .pagination .page-link {
+        will-change: transform;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
     }
 </style>
 {% endblock %}
@@ -305,9 +435,43 @@
 {% block scripts %}
 <script defer>
 document.addEventListener('DOMContentLoaded', function() {
+    // Jurnal kartalariga index qo'shish animatsiya uchun
     document.querySelectorAll('.jurnal-item').forEach((item, index) => {
         item.style.setProperty('--index', index);
     });
+
+    // Scroll performance optimization
+    let ticking = false;
+
+    function updateScrolling() {
+        // Scroll davomida qo'shimcha effektlar qo'shish mumkin
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            requestAnimationFrame(updateScrolling);
+            ticking = true;
+        }
+    }, { passive: true });
+
+    // Lazy loading optimization
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.remove('lazy');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+
+        document.querySelectorAll('img[data-src]').forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
 });
 </script>
 {% endblock %}
