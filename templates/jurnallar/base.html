@@ -4,30 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Google Meta Tags -->
-    <meta name="description" content="O'zbekiston Respublikasi Oliy attestatsiya komissiyasining dissertatsiyalar asosiy ilmiy natijalarini chop etish tavsiya etilgan ilmiy nashrlar jurnallari tizimi">
-    <meta name="keywords" content="OAK, ilmiy jurnal, dissertatsiya, O'zbekiston, ilmiy nashr, attestatsiya komissiyasi">
-    <meta name="author" content="O'zbekiston Respublikasi Oliy attestatsiya komissiyasi">
-    <meta name="robots" content="index, follow">
-    <meta name="googlebot" content="index, follow">
-
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="{% block og_title %}Jurnallar Tizimi - OAK{% endblock %}">
-    <meta property="og:description" content="O'zbekiston Respublikasi Oliy attestatsiya komissiyasining dissertatsiyalar asosiy ilmiy natijalarini chop etish tavsiya etilgan ilmiy nashrlar jurnallari">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ request.build_absolute_uri }}">
-    <meta property="og:site_name" content="OAK Jurnallar Tizimi">
-    <meta property="og:locale" content="uz_UZ">
-
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{% block twitter_title %}Jurnallar Tizimi - OAK{% endblock %}">
-    <meta name="twitter:description" content="O'zbekiston Respublikasi Oliy attestatsiya komissiyasining dissertatsiyalar asosiy ilmiy natijalarini chop etish tavsiya etilgan ilmiy nashrlar jurnallari">
-
-    <!-- Canonical URL -->
-    <link rel="canonical" href="{{ request.build_absolute_uri }}">
-
     <title>{% block title %}Jurnallar Tizimi{% endblock %}</title>
 
     <!-- Bootstrap CSS -->
@@ -48,215 +24,422 @@
     <link rel="manifest" href="{% static 'manifest.webmanifest' %}" />
 
     <style>
-        /* ASOSIY CSS O'ZGARUVCHILAR */
-        .contact-modal h2,.navbar-brand{color:var(--dark-color);font-weight:700}:root{--primary-color:#6366f1;--primary-dark:#4f46e5;--light-color:#ffffff;--dark-color:#1e293b;--text-color:#334155;--bg-color:#f8fafc;--border-radius:1rem;--shadow-lg:0 10px 15px -3px rgba(0, 0, 0, 0.1),0 4px 6px -4px rgba(0, 0, 0, 0.1);--transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1)}
+        :root {
+            --primary-color: #6366f1;
+            --primary-dark: #4f46e5;
+            --light-color: #ffffff;
+            --dark-color: #1e293b;
+            --text-color: #334155;
+            --bg-color: #f8fafc;
+            --border-radius: 1rem;
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-        /* BODY VA ASOSIY STILLAR */
-        body{background-color:var(--bg-color)!important;color:var(--text-color);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;overflow-x:hidden;padding-top:0!important;margin-top:0!important}
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+        }
 
-        /* NAVBAR - QAT'IY FIXED POZITSIYA */
-        .navbar-main{
+        /* DESKTOP NAVIGATSIYA */
+        .navbar-main {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            width: 100%;
             margin: 0;
-            padding: .75rem 1rem;
             border-radius: 0;
-            background: rgba(255,255,255,.98);
-            border-bottom: 1px solid rgba(0,0,0,.08);
-            box-shadow: 0 2px 20px rgba(0,0,0,.1);
-            z-index: 99999;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            z-index: 1030;
             backdrop-filter: blur(10px);
-            transform: translateY(0);
             transition: transform 0.3s ease;
-            min-height: auto;
         }
 
-        /* Scrolled state for navbar */
-        .navbar-main.scrolled {
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            padding: 0.5rem 1rem;
+        .navbar-main.navbar-hidden {
+            transform: translateY(-100%);
+            visibility: hidden;
+            opacity: 0;
         }
 
-        /* CONTAINER FLUID */
-        .container-fluid{
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            width: 100%;
-            margin: 0;
-            padding: 0 1rem;
-        }
-
-        /* NAVBAR BRAND */
-        .navbar-brand{
+        .navbar-brand {
+            font-weight: 700;
             font-size: 1.1rem;
             display: flex;
             align-items: center;
             text-decoration: none;
+            color: var(--dark-color);
             flex: 1;
             justify-content: center;
+        }
+
+        .navbar-brand:hover {
+            color: var(--primary-color);
+        }
+
+        .navbar-brand .logo-icon {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-right: 0.75rem;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .brand-text {
+            line-height: 1.3;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-align: center;
+            opacity: 1;
+            transform: scale(1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-main.navbar-scrolled .brand-text {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .text-line-1, .text-line-2, .text-line-3 {
+            display: block;
+        }
+
+        .text-line-1, .text-line-2 {
+            margin-bottom: 0.15rem;
+        }
+
+        .navbar-contact-btn {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            border: none;
+            border-radius: 0.75rem;
+            padding: 0.6rem 1.2rem;
+            font-weight: 600;
+            transition: var(--transition);
+            white-space: nowrap;
+            flex-shrink: 0;
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1040;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            margin-top: 0.25rem;
+        }
+
+        .navbar-contact-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+        }
+
+        .navbar-contact-btn .fa-headset {
+            margin-right: 0.5rem;
+        }
+
+        main {
+            padding-top: 100px;
+            animation: fade-in-up 0.5s ease-out forwards;
+        }
+
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ALOQA MODAL */
+        .contact-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1055;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .contact-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .contact-modal {
+            background-color: var(--light-color);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
             position: relative;
-            max-width: calc(100% - 150px);
-        }
-        .navbar-brand:hover{color:var(--primary-color)}
-        .navbar-brand .logo-icon{background:linear-gradient(135deg,var(--primary-color),var(--primary-dark));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-right:.75rem;font-size:1.5rem;flex-shrink:0}
-        .brand-text{line-height:1.3;font-size:.95rem;font-weight:600;text-align:center}
-        .text-line-1,.text-line-2,.text-line-3{display:block}
-        .text-line-1,.text-line-2{margin-bottom:.15rem}
-
-        /* Scrolled state for brand text */
-        .navbar-main.scrolled .brand-text {
-            font-size: 0.85rem;
-            line-height: 1.2;
-        }
-        .navbar-main.scrolled .text-line-1,
-        .navbar-main.scrolled .text-line-2 {
-            margin-bottom: 0.1rem;
-        }
-        .navbar-main.scrolled .logo-icon {
-            font-size: 1.3rem;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
         }
 
-        /* ALOQA TUGMASI */
-        .navbar-contact-btn{
-            background-color:var(--primary-color);
-            color:var(--light-color);
-            border:none;
-            border-radius:.75rem;
-            padding:.6rem 1.2rem;
-            font-weight:600;
-            transition:var(--transition);
-            white-space:nowrap;
-            flex-shrink:0;
-            position:absolute;
-            right:0;
-            top:50%;
-            transform:translateY(-50%);
-            z-index:100000;
-            box-shadow:0 4px 12px rgba(99,102,241,.3);
-        }
-        .navbar-contact-btn:hover{
-            background-color:var(--primary-dark);
-            transform:translateY(-52%);
-            box-shadow:0 6px 16px rgba(99,102,241,.4);
-        }
-        .navbar-contact-btn .fa-headset{margin-right:.5rem}
-
-        /* Scrolled state for contact button */
-        .navbar-main.scrolled .navbar-contact-btn {
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
+        .contact-modal-overlay.active .contact-modal {
+            transform: scale(1);
         }
 
-        /* MAIN CONTENT */
-        main{
-            padding-top: 120px;
-            margin-top: 0;
-            animation: .5s ease-out forwards fade-in-up;
-            position: relative;
-            z-index: 1;
+        .close-modal-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #f1f5f9;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 1rem;
+            color: #64748b;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
         }
 
-        /* Adjust main padding when navbar is scrolled */
-        .navbar-main.scrolled + main {
-            padding-top: 90px;
+        .close-modal-btn:hover {
+            background-color: #e2e8f0;
+            transform: rotate(90deg);
         }
 
-        @keyframes fade-in-up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+        .contact-modal h2 {
+            color: var(--dark-color);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
 
-        /* MODAL STILLAR */
-        .contact-modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:200000;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}.contact-modal-overlay.active{opacity:1;visibility:visible}.contact-modal{background-color:var(--light-color);padding:2rem;border-radius:var(--border-radius);box-shadow:0 15px 30px rgba(0,0,0,.2);width:90%;max-width:400px;text-align:center;position:relative;transform:scale(.9);transition:transform .3s}.close-modal-btn,.contact-link{display:flex;font-size:1rem;transition:var(--transition)}.contact-modal-overlay.active .contact-modal{transform:scale(1)}.close-modal-btn{position:absolute;top:10px;right:10px;background:#f1f5f9;border:none;border-radius:50%;width:30px;height:30px;color:#64748b;cursor:pointer;align-items:center;justify-content:center}.close-modal-btn:hover{background-color:#e2e8f0;transform:rotate(90deg)}.contact-modal h2{margin-bottom:.5rem}.contact-modal p{color:#64748b;margin-bottom:1.5rem}.contact-links{display:flex;flex-direction:column;gap:1rem}.contact-link{align-items:center;padding:.75rem;border-radius:.5rem;text-decoration:none;font-weight:500;border:1px solid #e2e8f0}.contact-link:hover{transform:translateY(-2px);box-shadow:0 4px 8px rgba(0,0,0,.05);border-color:var(--primary-color)}.contact-link .icon{font-size:1.25rem;width:35px;text-align:center;margin-right:.75rem}.contact-link.phone{color:#16a34a}.contact-link.telegram{color:#0ea5e9}
+        .contact-modal p {
+            color: #64748b;
+            margin-bottom: 1.5rem;
+        }
 
-        /* RESPONSIVE MEDIA QUERIES */
-        @media (min-width:992px){
-            .navbar-main{padding:1rem 2rem}
-            .container-fluid{justify-content:center;align-items:center;position:relative}
-            .navbar-brand{justify-content:center;text-align:center;max-width:calc(100% - 150px)}
-            .navbar-contact-btn{position:absolute;right:0;top:50%;transform:translateY(-50%)}
-            main{padding-top:120px}
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
 
-            /* Scrolled state for desktop */
-            .navbar-main.scrolled {
-                padding: 0.75rem 2rem;
+        .contact-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: var(--transition);
+            border: 1px solid #e2e8f0;
+        }
+
+        .contact-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            border-color: var(--primary-color);
+        }
+
+        .contact-link .icon {
+            font-size: 1.25rem;
+            width: 35px;
+            text-align: center;
+            margin-right: 0.75rem;
+        }
+
+        .contact-link.phone {
+            color: #16a34a;
+        }
+
+        .contact-link.telegram {
+            color: #0ea5e9;
+        }
+
+        /* MOBIL RESPONSIVE */
+        @media (max-width: 991px) {
+            .navbar-main {
+                padding: 0.75rem 1rem;
+                min-height: auto;
             }
-            .navbar-main.scrolled + main {
-                padding-top: 100px;
-            }
-        }
-        @media (max-width:991px){
-            .navbar-main{padding:.75rem 1rem}
-            .container-fluid{justify-content:center;align-items:center;position:relative}
-            .navbar-brand{justify-content:center;text-align:center;margin-bottom:0;max-width:calc(100% - 120px)}
-            .navbar-brand .logo-icon{margin-right:.5rem;font-size:1.25rem}
-            .brand-text{font-size:.75rem;line-height:1.2;text-align:center;max-width:none}
-            .text-line-1,.text-line-2{margin-bottom:.1rem}
-            .navbar-contact-btn{position:absolute;right:0;top:50%;transform:translateY(-50%);padding:.45rem .9rem;font-size:.8rem;border-radius:.5rem;z-index:100001;margin-top:.2rem}
-            .navbar-contact-btn .btn-text{display:inline}
-            main{padding-top:110px}
 
-            /* Scrolled state for tablet */
-            .navbar-main.scrolled {
-                padding: 0.5rem 1rem;
+            .container-fluid {
+                justify-content: center;
+                align-items: center;
+                position: relative;
             }
-            .navbar-main.scrolled + main {
+
+            .navbar-brand {
+                justify-content: center;
+                text-align: center;
+                margin-bottom: 0;
+                max-width: calc(100% - 120px);
+            }
+
+            .navbar-brand .logo-icon {
+                margin-right: 0.5rem;
+                font-size: 1.25rem;
+            }
+
+            .brand-text {
+                font-size: 0.75rem;
+                line-height: 1.2;
+                text-align: center;
+                max-width: none;
+            }
+
+            .text-line-1, .text-line-2 {
+                margin-bottom: 0.1rem;
+            }
+
+            .navbar-contact-btn {
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                padding: 0.45rem 0.9rem;
+                font-size: 0.8rem;
+                border-radius: 0.5rem;
+                z-index: 1041;
+                margin-top: 0.2rem;
+            }
+
+            .navbar-contact-btn .btn-text {
+                display: inline;
+            }
+
+            main {
                 padding-top: 90px;
             }
         }
-        @media (max-width:768px){
-            .navbar-main{padding:.6rem .75rem}
-            .navbar-brand{max-width:calc(100% - 110px)}
-            .brand-text{font-size:.7rem;line-height:1.15}
-            .navbar-contact-btn{padding:.4rem .8rem;font-size:.75rem;margin-top:.15rem}
-            main{padding-top:105px}
 
-            /* Scrolled state for small tablet */
-            .navbar-main.scrolled {
-                padding: 0.4rem 0.75rem;
+        @media (max-width: 768px) {
+            .navbar-main {
+                padding: 0.6rem 0.75rem;
             }
-            .navbar-main.scrolled + main {
+
+            .navbar-brand {
+                max-width: calc(100% - 110px);
+            }
+
+            .brand-text {
+                font-size: 0.7rem;
+                line-height: 1.15;
+            }
+
+            .navbar-contact-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.75rem;
+                margin-top: 0.15rem;
+            }
+
+            main {
                 padding-top: 85px;
             }
-        }
-        @media (max-width:576px){
-            .navbar-main{padding:.5rem}
-            .navbar-brand{max-width:calc(100% - 100px)}
-            .brand-text{font-size:.65rem;line-height:1.1;padding:0}
-            .navbar-brand .logo-icon{font-size:1.1rem;margin-right:.4rem}
-            .text-line-1,.text-line-2{margin-bottom:.05rem}
-            .navbar-contact-btn{padding:.35rem .7rem;font-size:.7rem;margin-top:.1rem}
-            main{padding-top:100px}
 
-            /* Scrolled state for mobile */
-            .navbar-main.scrolled {
-                padding: 0.3rem 0.5rem;
+            .navbar-main.navbar-scrolled .brand-text {
+                opacity: 0.3;
+                transform: scale(0.9);
             }
-            .navbar-main.scrolled + main {
+        }
+
+        @media (max-width: 576px) {
+            .navbar-main {
+                padding: 0.5rem 0.5rem;
+            }
+
+            .navbar-brand {
+                max-width: calc(100% - 100px);
+            }
+
+            .brand-text {
+                font-size: 0.65rem;
+                line-height: 1.1;
+                padding: 0;
+            }
+
+            .navbar-brand .logo-icon {
+                font-size: 1.1rem;
+                margin-right: 0.4rem;
+            }
+
+            .text-line-1, .text-line-2 {
+                margin-bottom: 0.05rem;
+            }
+
+            .navbar-contact-btn {
+                padding: 0.35rem 0.7rem;
+                font-size: 0.7rem;
+                margin-top: 0.1rem;
+            }
+
+            main {
                 padding-top: 80px;
             }
-        }
-        @media (max-width:480px){
-            .navbar-brand{max-width:calc(100% - 90px)}
-            .brand-text{font-size:.6rem;line-height:1.05}
-            .navbar-contact-btn{padding:.3rem .6rem;font-size:.65rem;margin-top:.1rem}
-            main{padding-top:95px}
 
-            /* Scrolled state for small mobile */
-            .navbar-main.scrolled + main {
-                padding-top: 75px;
+            .navbar-main.navbar-scrolled .brand-text {
+                opacity: 0.2;
+                transform: scale(0.85);
             }
         }
-        @media (max-width:400px){
-            .navbar-brand{max-width:calc(100% - 80px)}
-            .brand-text{font-size:.55rem;line-height:1}
-            .navbar-contact-btn{padding:.25rem .5rem;font-size:.6rem;margin-top:.05rem}
-            main{padding-top:90px}
 
-            /* Scrolled state for extra small mobile */
-            .navbar-main.scrolled + main {
+        @media (max-width: 480px) {
+            .navbar-brand {
+                max-width: calc(100% - 90px);
+            }
+
+            .brand-text {
+                font-size: 0.6rem;
+                line-height: 1.05;
+            }
+
+            .navbar-contact-btn {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.65rem;
+                margin-top: 0.1rem;
+            }
+
+            main {
+                padding-top: 75px;
+            }
+
+            .navbar-main.navbar-scrolled .brand-text {
+                opacity: 0.1;
+                transform: scale(0.8);
+            }
+        }
+
+        @media (max-width: 400px) {
+            .navbar-brand {
+                max-width: calc(100% - 80px);
+            }
+
+            .brand-text {
+                font-size: 0.55rem;
+                line-height: 1;
+            }
+
+            .navbar-contact-btn {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.6rem;
+                margin-top: 0.05rem;
+            }
+
+            main {
                 padding-top: 70px;
+            }
+
+            .navbar-main.navbar-scrolled .brand-text {
+                opacity: 0;
+                transform: scale(0.7);
             }
         }
     </style>
@@ -315,12 +498,11 @@
     <!-- JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Modal funksiyasi
             const openBtn = document.getElementById('openContactModalBtn');
             const closeBtn = document.getElementById('closeContactModalBtn');
             const modalOverlay = document.getElementById('contactModalOverlay');
-            const navbar = document.getElementById('mainNavbar');
 
-            // Modal functionality
             if (openBtn && closeBtn && modalOverlay) {
                 openBtn.addEventListener('click', () => modalOverlay.classList.add('active'));
                 closeBtn.addEventListener('click', () => modalOverlay.classList.remove('active'));
@@ -334,29 +516,36 @@
                 });
             }
 
-            // Navbar scroll effect
-            if (navbar) {
-                let lastScrollTop = 0;
-                const navbarHeight = navbar.offsetHeight;
-                const scrollThreshold = 50;
+            // Navbar scroll effekti
+            const navbar = document.getElementById('mainNavbar');
+            let lastScrollY = window.scrollY;
+            let ticking = false;
 
-                window.addEventListener('scroll', function() {
-                    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            function updateNavbar() {
+                const currentScrollY = window.scrollY;
 
-                    if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
-                        // Scrolling down
-                        navbar.classList.add('scrolled');
-                    } else if (scrollTop <= scrollThreshold) {
-                        // At top of page
-                        navbar.classList.remove('scrolled');
-                    } else {
-                        // Scrolling up
-                        navbar.classList.remove('scrolled');
-                    }
+                if (currentScrollY <= 80) {
+                    // Eng tepaga yetganda (80px dan kam) - hammasi ko'rinsin
+                    navbar.classList.remove('navbar-scrolled');
+                    navbar.classList.remove('navbar-hidden');
+                } else {
+                    // 80px dan pastda - navbar butunlay yashirin
+                    navbar.classList.add('navbar-scrolled');
+                    navbar.classList.add('navbar-hidden');
+                }
 
-                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-                });
+                lastScrollY = currentScrollY;
+                ticking = false;
             }
+
+            function requestTick() {
+                if (!ticking) {
+                    requestAnimationFrame(updateNavbar);
+                    ticking = true;
+                }
+            }
+
+            window.addEventListener('scroll', requestTick, { passive: true });
         });
     </script>
 
