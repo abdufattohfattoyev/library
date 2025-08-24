@@ -97,7 +97,208 @@
 </div>
 
 <style>
-    .image-wrapper,.jurnal-image,.jurnal-image-wrapper{position:relative;width:100%}:root{--primary-gradient:linear-gradient(45deg, #6366f1, #8b5cf6);--primary-color:#6366f1;--border-radius:1rem;--card-bg:#ffffff;--card-border:#f3f4f6;--text-dark:#111827;--text-muted:#6b7280;--body-bg:#f9fafb}body{background-color:var(--body-bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}.main-title{font-weight:800;color:var(--text-dark)}.search-form .input-group{border-radius:var(--border-radius);background:var(--card-bg);border:1px solid #e5e7eb;transition:.2s ease-in-out}.search-form .input-group:focus-within{border-color:var(--primary-color);box-shadow:0 0 0 3px rgba(99,102,241,.2)}.search-icon-wrapper{background:0 0;border:none;color:var(--text-muted);padding-left:1rem}.search-input{border:none;background:0 0;padding:.75rem 1rem .75rem 0;font-size:1rem}.search-input:focus{box-shadow:none}.jurnal-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--border-radius);transition:.3s;box-shadow:0 4px 6px -1px rgba(0,0,0,.05),0 2px 4px -2px rgba(0,0,0,.05);overflow:hidden}.jurnal-card:hover{transform:translateY(-5px);box-shadow:0 10px 15px -3px rgba(0,0,0,.07),0 4px 6px -4px rgba(0,0,0,.07)}.jurnal-image-wrapper{aspect-ratio:16/10;overflow:hidden;background-color:#e2e8f0}.image-wrapper{height:100%;display:flex;align-items:center;justify-content:center;padding:.75rem;background-size:cover;background-position:center}.image-wrapper::before{content:'';position:absolute;inset:0;background-color:rgba(255,255,255,.3);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px)}.jurnal-image{height:100%;object-fit:contain;border-radius:calc(var(--border-radius) - .5rem);box-shadow:0 3px 10px rgba(0,0,0,.1);transition:transform .3s}.jurnal-card:hover .jurnal-image{transform:scale(1.02)}.jurnal-image-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#f1f5f9,#e2e8f0)}.placeholder-letter{font-size:2.5rem;font-weight:800;color:var(--primary-color);opacity:.5;font-family:Inter,sans-serif}.card-title{color:var(--text-dark);line-height:1.4;font-size:1rem}.card-footer{background:0 0;border-top:1px solid var(--card-border)}.details-btn,.pagination .page-item.active .page-link,.pagination .page-item.active .page-link:hover{background:var(--primary-gradient);color:#fff}.details-btn{font-weight:600;border:none;transition:.2s;width:100%}.details-btn:hover{color:#fff;opacity:.9;box-shadow:0 4px 15px rgba(99,102,241,.3)}.jurnal-item,.search-section{animation:.5s cubic-bezier(.25,.46,.45,.94) forwards item-fade-in;opacity:0;transform:translateY(20px)}@keyframes item-fade-in{to{opacity:1;transform:translateY(0)}}.search-section{animation-delay:.1s}.jurnal-item{animation-delay:calc(var(--index) * 50ms + 200ms)}.pagination .page-link{border:none;background:0 0;color:var(--text-muted);border-radius:.75rem;margin:0 .2rem;font-weight:600;width:2.5rem;height:2.5rem;line-height:1.5rem}.pagination .page-item.active .page-link{box-shadow:0 2px 8px rgba(99,102,241,.3)}.pagination .page-item.disabled .page-link{color:#d1d5db}.pagination .page-link:hover{background-color:#eef2ff;color:var(--primary-color)}@media (max-width:768px){.placeholder-letter{font-size:2rem}}@media (max-width:576px){.placeholder-letter{font-size:1.75rem}.jurnal-image-wrapper{aspect-ratio:1/1}}
+    :root {
+        --primary-gradient: linear-gradient(45deg, #6366f1, #8b5cf6);
+        --primary-color: #6366f1;
+        --border-radius: 1rem;
+        --card-bg: #ffffff;
+        --card-border: #f3f4f6;
+        --text-dark: #111827;
+        --text-muted: #6b7280;
+        --body-bg: #f9fafb;
+    }
+
+    body {
+        background-color: var(--body-bg);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    .main-title {
+        font-weight: 800;
+        color: var(--text-dark);
+    }
+
+    /* Qidiruv Stili */
+    .search-form .input-group {
+        border-radius: var(--border-radius);
+        background: var(--card-bg);
+        border: 1px solid #e5e7eb;
+        transition: all 0.2s ease-in-out;
+    }
+    .search-form .input-group:focus-within {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    }
+    .search-icon-wrapper {
+        background: transparent;
+        border: none;
+        color: var(--text-muted);
+        padding-left: 1rem;
+    }
+    .search-input {
+        border: none;
+        background: transparent;
+        padding: 0.75rem 1rem 0.75rem 0;
+        font-size: 1rem;
+    }
+    .search-input:focus {
+        box-shadow: none;
+    }
+
+    /* Karta Stili */
+    .jurnal-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: var(--border-radius);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -2px rgba(0,0,0,0.05);
+        overflow: hidden;
+    }
+    .jurnal-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.07), 0 4px 6px -4px rgba(0,0,0,0.07);
+    }
+
+    /* Detail-dek Rasm Stili */
+    .jurnal-image-wrapper {
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        overflow: hidden;
+        position: relative;
+        background-color: #e2e8f0;
+    }
+
+    .image-wrapper {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem;
+        position: relative;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .image-wrapper::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-color: rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+    }
+
+    .jurnal-image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        position: relative;
+        border-radius: calc(var(--border-radius) - 0.5rem);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .jurnal-card:hover .jurnal-image {
+        transform: scale(1.02);
+    }
+
+    .jurnal-image-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+    }
+
+    .placeholder-letter {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--primary-color);
+        opacity: 0.5;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .card-title {
+        color: var(--text-dark);
+        line-height: 1.4;
+        font-size: 1rem;
+    }
+    .card-footer {
+        background: transparent;
+        border-top: 1px solid var(--card-border);
+    }
+    .details-btn {
+        background: var(--primary-gradient);
+        color: white;
+        font-weight: 600;
+        border: none;
+        transition: all 0.2s;
+        width: 100%;
+    }
+    .details-btn:hover {
+        color: white;
+        opacity: 0.9;
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    }
+
+    /* Animatsiya */
+    .jurnal-item, .search-section {
+        animation: item-fade-in 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    @keyframes item-fade-in {
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .search-section { animation-delay: 100ms; }
+    .jurnal-item { animation-delay: calc(var(--index) * 50ms + 200ms); }
+
+    /* Pagination */
+    .pagination .page-link {
+        border: none;
+        background: transparent;
+        color: var(--text-muted);
+        border-radius: 0.75rem;
+        margin: 0 0.2rem;
+        font-weight: 600;
+        width: 2.5rem;
+        height: 2.5rem;
+        line-height: 1.5rem;
+    }
+    .pagination .page-item.active .page-link {
+        background: var(--primary-gradient);
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+    }
+    .pagination .page-item.disabled .page-link {
+        color: #d1d5db;
+    }
+    .pagination .page-link:hover {
+        background-color: #eef2ff;
+        color: var(--primary-color);
+    }
+    .pagination .page-item.active .page-link:hover {
+        background: var(--primary-gradient);
+        color: #fff;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .placeholder-letter {
+            font-size: 2rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .placeholder-letter {
+            font-size: 1.75rem;
+        }
+        .jurnal-image-wrapper {
+            aspect-ratio: 1 / 1;
+        }
+    }
 </style>
 {% endblock %}
 
