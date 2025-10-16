@@ -17,3 +17,10 @@ media/
 # OS specific files
 .DS_Store
 Thumbs.db
+#env
+
+# Translations
+locale
+
+# Django debug toolbar
+__debug__

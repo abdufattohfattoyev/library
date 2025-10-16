@@ -8,6 +8,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('library.urls')),
 
+    # API endpoints
+    path('api/', include('library.api_urls')),
+
     # robots.txt
     path(
         "robots.txt",
